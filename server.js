@@ -20,11 +20,12 @@ app.use(cookieParser());
 
 // Swagger Documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
-console.log("http://localhost:8000/api-docs")
+console.log("http://localhost:8000/api-docs");
 
 //router
 app.use("/auth", require("./routers/authRoutes"));
 app.use("/user", require("./routers/userRoutes"));
+app.use("/bill", require("./routers/billRoutes"));
 
 const port = 8000;
 
