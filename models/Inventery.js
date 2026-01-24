@@ -8,9 +8,9 @@ const inventorySchema = new mongoose.Schema(
       trim: true,
     },
     itemNumber: {
-      type: String,
+      type: Number,
       required: true,
-      unique: true,
+      default: 0,
     },
     otherPrice: {
       type: Number,

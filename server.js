@@ -25,6 +25,7 @@ console.log("http://localhost:8000/api-docs")
 //router
 app.use("/auth", require("./routers/authRoutes"));
 app.use("/user", require("./routers/userRoutes"));
+app.use("/api", require("./routers/InventeryRoutes"));
 
 const port = 8000;
 
