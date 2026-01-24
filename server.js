@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+const { swaggerUi, specs } = require("./swagger");
 
 const app = express();
 
@@ -17,7 +18,13 @@ app.use(express.json()); // For parsing application/json
 app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
 app.use(cookieParser());
 
+// Swagger Documentation
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+console.log("http://localhost:8000/api-docs")
+
 //router
+app.use("/auth", require("./routers/authRoutes"));
+app.use("/user", require("./routers/userRoutes"));
 
 const port = 8000;
 
