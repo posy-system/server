@@ -94,7 +94,6 @@ const deleteInventoryItem = async (req, res) => {
 };
 
 // Update an inventory item by ID (partial update)
-
 const updateInventoryItem = async (req, res) => {
   try {
     const { id } = req.params;
@@ -140,10 +139,45 @@ const updateInventoryItem = async (req, res) => {
   }
 };
 
+// Search inventory items by itemName or itemNumber 
+const searchInventoryItems = async (req, res) => {
+  try {
+    const { itemName, itemNumber } = req.query;
+    const filter = {};
+    if (itemName) {
+      filter.itemName = { $regex: itemName, $options: "i" };
+    }
+
+    if (itemNumber) {
+      const num = Number(itemNumber);
+
+      if (isNaN(num)) {
+        return res.status(400).json({ message: "itemNumber must be a number" });
+      }
+
+      filter.itemNumber = num;
+    }
+
+    if (!itemName && !itemNumber) {
+      return res
+        .status(400)
+        .json({ message: "Provide itemName or itemNumber" });
+    }
+
+    const items = await Inventory.find(filter);
+
+    res.status(200).json(items);
+  } catch (error) {
+    console.error("Search inventory error:", error);
+    res.status(500).json({ error: "Server Error" });
+  }
+};
+
 module.exports = {
   createInventoryItem,
   getAllInventoryItems,
   deleteInventoryItem,
   updateInventoryItem,
   getInventoryItemById,
+  searchInventoryItems,
 };

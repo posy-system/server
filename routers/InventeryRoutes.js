@@ -8,13 +8,14 @@ const {
   deleteInventoryItem,
   updateInventoryItem,
   getInventoryItemById,
+  searchInventoryItems,
 } = require("../controllers/inventeryController");
 
 router.use(
   cors({
     credentials: true,
     origin: "http://localhost:3000",
-  })
+  }),
 );
 
 /**
@@ -132,5 +133,34 @@ router.patch("/inventoryUpdate/:id", updateInventoryItem);
  *         description: Inventory item deleted
  */
 router.delete("/inventoryDelete/:id", deleteInventoryItem);
+
+/**
+ * @swagger
+ * /api/inventorySearch:
+ *   get:
+ *     summary: Search inventory items by itemName or itemNumber
+ *     tags:
+ *       - Inventory
+ *     parameters:
+ *       - in: query
+ *         name: itemName
+ *         schema:
+ *           type: string
+ *         description: Partial or full name of the item to search
+ *       - in: query
+ *         name: itemNumber
+ *         schema:
+ *           type: number
+ *         description: Partial or full item number to search
+ *     responses:
+ *       200:
+ *         description: List of matching inventory items
+ *       400:
+ *         description: Provide itemName or itemNumber
+ *       500:
+ *         description: Server Error
+ */
+router.get("/inventorySearch", searchInventoryItems);
+
 
 module.exports = router;
