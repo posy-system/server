@@ -1,5 +1,6 @@
 const Sales = require("../models/SalesModel");
 
+
 // Helper function to calculate discount amount
 const calculateDiscountAmount = (subtotal, discountPercentage) => {
   return (subtotal * discountPercentage) / 100;

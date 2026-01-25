@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-const { comparePassword } = require("../helpers/auth");
+const { comparePassword  } = require("../helpers/auth");
 
 //login End Point
 const loginUser = async (req, res) => {

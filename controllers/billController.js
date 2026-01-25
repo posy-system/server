@@ -28,6 +28,7 @@ const getAllBills = async (req, res) => {
       },
     });
   } catch (error) {
+    console.error("Error updating bill:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -44,6 +45,7 @@ const getBill = async (req, res) => {
       .status(200)
       .json({ message: "Bill fetched successfully", bill: billData });
   } catch (error) {
+    console.error("Error fetching bill:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -60,6 +62,7 @@ const deleteBill = async (req, res) => {
       .status(200)
       .json({ message: "Bill deleted successfully", bill: deletedBill });
   } catch (error) {
+    console.error("Error deleting bill:", error); 
     return res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -78,6 +81,7 @@ const updateBill = async (req, res) => {
       .status(200)
       .json({ message: "Bill updated successfully", bill: updatedBill });
   } catch (error) {
+    console.error("Error updating bill:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
