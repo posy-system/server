@@ -9,14 +9,14 @@ const notificationSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-     type: {
+    type: {
       type: String,
-      enum: ['INFO', 'WARNING', 'SUCCESS', 'ERROR'],
-      default: 'INFO',
+      enum: ["INFO", "WARNING", "SUCCESS", "ERROR"],
+      default: "INFO",
     },
     viewed: {
-      type: Array,
-      default: [],
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true },

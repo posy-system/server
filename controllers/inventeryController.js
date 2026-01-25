@@ -173,6 +173,17 @@ const searchInventoryItems = async (req, res) => {
   }
 };
 
+//  Get total count of inventery
+const totalCount = async (req, res) => {
+  try {
+    const count = await Inventory.countDocuments();
+    res.status(200).json({ totalCount: count });
+  } catch (error) { 
+    console.error(error);
+    res.status(500).json({ error: "Server Error" });
+  }
+};
+
 module.exports = {
   createInventoryItem,
   getAllInventoryItems,
@@ -180,4 +191,5 @@ module.exports = {
   updateInventoryItem,
   getInventoryItemById,
   searchInventoryItems,
+  totalCount,
 };

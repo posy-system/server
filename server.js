@@ -30,6 +30,7 @@ app.use("/user", require("./routers/userRoutes"));
 app.use("/bill", require("./routers/billRoutes"));
 app.use("/api", require("./routers/InventeryRoutes"));
 app.use("/sales", require("./routers/salesRoutes"));
+app.use("/api", require("./routers/notificationroutes"));
 
 const port = 8000;
 

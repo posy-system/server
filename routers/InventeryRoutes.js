@@ -9,6 +9,7 @@ const {
   updateInventoryItem,
   getInventoryItemById,
   searchInventoryItems,
+  totalCount,
 } = require("../controllers/inventeryController");
 
 router.use(
@@ -162,5 +163,18 @@ router.delete("/inventoryDelete/:id", deleteInventoryItem);
  */
 router.get("/inventorySearch", searchInventoryItems);
 
+/**
+ * @swagger
+ * /api/inventoryTotalCount:
+ *   get:
+ *     summary: Get total count of inventory items
+ *     tags: [Inventory]
+ *     responses:
+ *       200:
+ *         description: Total count of inventory items
+ *       500:
+ *         description: Server Error
+ */
+router.get("/inventoryTotalCount", totalCount);
 
 module.exports = router;
