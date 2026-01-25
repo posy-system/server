@@ -2,11 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const { swaggerUi, specs } = require("./swagger");
 
 const app = express();
 
-console.log("MongoDB URL:", process.env.MONGO_URL); // Debug line to check if the URL is correctly loaded
+console.log("MongoDB URL:", process.env.MONGO_URL);
 
 mongoose
   .connect(process.env.MONGO_URL)
@@ -14,17 +15,19 @@ mongoose
   .catch((err) => console.log("Database not connected", err));
 
 // Middleware
-app.use(express.json()); // For parsing application/json
-app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Swagger Documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
-console.log("http://localhost:8000/api-docs")
+console.log("Swagger docs available at: http://localhost:8000/api-docs");
 
-//router
+// Routes
 app.use("/auth", require("./routers/authRoutes"));
 app.use("/user", require("./routers/userRoutes"));
+app.use("/sales", require("./routers/salesRoutes"));
 
 const port = 8000;
 
@@ -32,3 +35,5 @@ const port = 8000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+module.exports = app;
