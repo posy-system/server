@@ -27,6 +27,7 @@ console.log("Swagger docs available at: http://localhost:8000/api-docs");
 // Routes
 app.use("/auth", require("./routers/authRoutes"));
 app.use("/user", require("./routers/userRoutes"));
+app.use("/bill", require("./routers/billRoutes"));
 app.use("/api", require("./routers/InventeryRoutes"));
 app.use("/sales", require("./routers/salesRoutes"));
 
