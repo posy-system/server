@@ -1,12 +1,17 @@
-const express =  require('express');
+const express = require("express");
 const router = express.Router();
-const cors = require('cors');
-const {Createuser, getuser} = require('../controllers/userController');
+const cors = require("cors");
+const {
+  Createuser,
+  getuser,
+  resetpassword,
+} = require("../controllers/userController");
+const { swaggerUi } = require("../swagger");
 router.use(
-    cors({
-        credentials: true,
-        origin: 'http://localhost:3000'
-    })
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000",
+  }),
 );
 
 /**
@@ -35,7 +40,7 @@ router.use(
  *             schema:
  *               $ref: '#/components/schemas/ErrorMessage'
  */
-router.post('/createuser' , Createuser);
+router.post("/createuser", Createuser);
 
 /**
  * @swagger
@@ -70,8 +75,40 @@ router.post('/createuser' , Createuser);
  *             schema:
  *               $ref: '#/components/schemas/ErrorMessage'
  */
-router.get('/getuser', getuser);
+router.get("/getuser", getuser);
 
+/**
+ * @swagger
+ * /user/resetpassword:
+ *   patch:
+ *     summary: Reset user password
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ResetPasswordRequest'
+ *     responses:
+ *       200:
+ *         description: Password reset successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SuccessMessage'
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorMessage'
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorMessage'
+ */
+router.patch("/resetpassword", resetpassword);
 
-
-module.exports = router
+module.exports = router;
