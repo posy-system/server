@@ -25,7 +25,11 @@ Bill managemt:-
 3. Get by Id
 4. Delete bill
  
-Notifacition managemt:-   
+Notifacition managemt:-  
+1. Add notification
+2. Get all notifications
+3. Add View button
+4. Delete notification
 
 **Attributes**
 
