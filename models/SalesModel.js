@@ -53,4 +53,7 @@ const salesSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+
+
+
 module.exports = mongoose.model("Sales", salesSchema);
