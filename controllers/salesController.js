@@ -2,6 +2,7 @@ const Sales = require("../models/SalesModel");
 const Inventory = require("../models/Inventery");
 const mongoose = require("mongoose");
 
+
 // Helper function to calculate discount amount
 const calculateDiscountAmount = (subtotal, discountPercentage) => {
   return (subtotal * discountPercentage) / 100;

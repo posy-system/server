@@ -7,6 +7,7 @@ const {
   deleteBill,
   updateBill,
 } = require("../controllers/billController");
+
 router.use(
   cors({
     credentials: true,
