@@ -32,27 +32,31 @@ const createInventoryItem = async (req, res) => {
   }
 };
 
-// Get all inventory items
+// Get all inventory items and all items count pagination support (pass startindex and endindex  )
 const getAllInventoryItems = async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const startindex = parseInt(req.query.startindex) || 0;
+    const endindex = parseInt(req.query.endindex) || 9; // default to 10 items (0-9)
+    const limit = endindex - startindex + 1;
 
-    const skip = (page - 1) * limit;
-
-    const items = await Inventory.find()
-      .skip(skip)
-      .limit(limit)
-      .sort({ createdAt: -1 });
+    if (limit <= 0) {
+      return res.status(400).json({ error: "Invalid startindex or endindex" });
+    }
 
     const totalItems = await Inventory.countDocuments();
 
+    const items = await Inventory.find()
+      .skip(startindex)
+      .limit(limit)
+      .sort({ createdAt: -1 });
+
     res.status(200).json({
-      page,
-      limit,
       totalItems,
-      totalPages: Math.ceil(totalItems / limit),
+      startindex,
+      endindex: Math.min(endindex, totalItems - 1),
       data: items,
+      totalPages: Math.ceil(totalItems / limit),
+      currentPage: Math.floor(startindex / limit) + 1,
     });
   } catch (error) {
     console.error(error);
