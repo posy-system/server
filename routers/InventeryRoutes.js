@@ -65,11 +65,43 @@ router.post("/inventoryAdd", createInventoryItem);
  * @swagger
  * /api/inventoryGetall:
  *   get:
- *     summary: Get all inventory items
+ *     summary: Get all inventory items with pagination
  *     tags: [Inventory]
+ *     parameters:
+ *       - in: query
+ *         name: startindex
+ *         schema:
+ *           type: integer
+ *           default: 0
+ *         description: Starting index of items to retrieve (0-based)
+ *       - in: query
+ *         name: endindex
+ *         schema:
+ *           type: integer
+ *           default: 9
+ *         description: Ending index of items to retrieve (inclusive)
  *     responses:
  *       200:
- *         description: List of inventory items
+ *         description: List of inventory items with pagination info
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 totalItems:
+ *                   type: integer
+ *                 startindex:
+ *                   type: integer
+ *                 endindex:
+ *                   type: integer
+ *                 totalPages:
+ *                   type: integer
+ *                 currentPage:
+ *                   type: integer
+ *                 data:
+ *                   type: array
+ *       400:
+ *         description: Invalid startindex or endindex
  */
 router.get("/inventoryGetall", getAllInventoryItems);
 
